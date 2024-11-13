@@ -1,5 +1,7 @@
 import React from 'react'
 import { signOut } from 'next-auth/react';
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 interface AccountMenuProps {
     visible?: boolean;
@@ -8,6 +10,14 @@ interface AccountMenuProps {
 const AccountMenu: React.FC<AccountMenuProps> = ({
     visible
 }) => {
+    const { data: session } = useSession();
+
+  console.log(session);
+  if (!session) {
+    redirect("/auth");
+  }
+
+  const { user } = session;
     if(!visible) {
         return null;
     }
@@ -17,7 +27,7 @@ const AccountMenu: React.FC<AccountMenuProps> = ({
             <div className='px-3 group/item flex flex-row gap-3 items-center w-full'>
                 <img  className="w-10 rounded-md" src="/profile.jpg" alt="profile" />
                 <p className='text-white text-sm group-hover/item:underline'>
-                    Username
+                    {user?.name}
                 </p>
             </div>
             <hr className='bg-gray-600 border-0 h-px my-4'/>
