@@ -12,7 +12,6 @@ const AccountMenu: React.FC<AccountMenuProps> = ({
 }) => {
     const { data: session } = useSession();
 
-  console.log(session);
   if (!session) {
     redirect("/auth");
   }

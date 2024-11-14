@@ -18,7 +18,7 @@ export async function middleware(req: NextRequest) {
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY || ""
   ).toString();
 
-  console.log(decryptedToken)
+  // console.log(decryptedToken)
 
   const isTokenValid = decodeToken(decryptedToken);
 
