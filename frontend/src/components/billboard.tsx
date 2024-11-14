@@ -8,7 +8,6 @@ const Billboard = () => {
   const { data } = useBillboard();
   const { openModal } = useInfoModal();
   const handleOpenModal = useCallback(() => {
-    console.log(data?.body?.id)
     openModal(data?.body?.id);
   }, [openModal, data?.body?.id]);
 

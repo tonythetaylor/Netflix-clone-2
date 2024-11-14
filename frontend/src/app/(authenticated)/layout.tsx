@@ -8,7 +8,6 @@ export default async function AuthenticatedLayout({
 }>) {
   const { user } = await getAuth();
 
-  console.log('USER', user)
   if (!user) {
     redirect('/auth');
   }

@@ -19,7 +19,6 @@ const register = async (formData: FormData) => {
         const email = formData.get('email') as string
         const password = formData.get('password') as string
 
-    console.log(formData)
     try {
         const existingUser = await prismadb.user.findUnique({
             where: {
@@ -33,7 +32,6 @@ const register = async (formData: FormData) => {
 
         const hashedPassword = await bcrypt.hash(password, 12)
 
-        console.log("hashedPassword", hashedPassword)
         const user = await prismadb.user.create({
             data: {
                 name: formDataRaw.name,

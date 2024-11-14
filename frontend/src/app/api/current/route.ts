@@ -7,7 +7,6 @@ import { auth } from "@/auth";
 export async function GET(req: Request, res: Response) {
     const session = await auth()
 
-    // console.log(req)
     if(req.method !== 'GET') {
         return Response.error()
     }

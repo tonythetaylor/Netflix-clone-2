@@ -12,7 +12,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     
     try {
         await serverAuth()
-        const { id } = params
+        const { id } = await params
 
         if (typeof id !== 'string') {
             throw new Error('Invalid ID')
@@ -28,7 +28,6 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
             }
         })
 
-        console.log(movie)
         if(!movie) {
             throw new Error('Invalid ID')
         }
