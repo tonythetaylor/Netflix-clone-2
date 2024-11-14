@@ -6,10 +6,9 @@ interface InputProps {
   value: string;
   label: string;
   type: string;
-  name: string;
 }
 
-const Input: React.FC<InputProps> = ({ id, onChange, value, label, type, name }) => {
+const Input: React.FC<InputProps> = ({ id, onChange, value, label, type }) => {
   return (
     <div className="relative">
       <input
@@ -17,7 +16,6 @@ const Input: React.FC<InputProps> = ({ id, onChange, value, label, type, name })
         type={type}
         value={value}
         id={id}
-        name={name}
         className="
         block
         rounded-md

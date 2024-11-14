@@ -4,7 +4,10 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from "@/lib/prismadb";
 import serverAuth from "@/lib/serverAuth";
 
-export async function GET(req: Request, { params }: { params: { id: string } }) {
+export async function GET(
+    req: Request,
+    { params }: { params: Promise<{ id: string }> }
+    ) {
     
     if (req.method !== 'GET') {
         return NextResponse.json({status: 405})
@@ -12,7 +15,7 @@ export async function GET(req: Request, { params }: { params: { id: string } }) 
     
     try {
         await serverAuth()
-        const { id } = await params
+        const id = (await params).id 
 
         if (typeof id !== 'string') {
             throw new Error('Invalid ID')

@@ -2,11 +2,10 @@ import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs"
-import { db } from "./db";
-import { saltAndHashPassword } from "@/utils/helper";
+import prisma from "./lib/prismadb";
 
 export const { auth, handlers: { GET, POST }, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(db),
+  adapter: PrismaAdapter(prisma),
   session: {strategy: "jwt"},
   pages: {
     signIn: "/auth",
@@ -26,7 +25,7 @@ export const { auth, handlers: { GET, POST }, signIn, signOut } = NextAuth({
         if (!credentials?.email || !credentials?.password) {
           throw new Error('Email and password required')
         }
-        const user = await db.user.findUnique({
+        const user = await prisma.user.findUnique({
           where: {
             email: credentials.email
           }

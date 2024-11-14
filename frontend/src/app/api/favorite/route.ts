@@ -4,7 +4,7 @@ import prisma from "@/lib/prismadb";
 import serverAuth from "@/lib/serverAuth";
 import { auth } from "@/auth";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
     try {
 
         if(req.method === 'POST') {
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     }
 }
 
-export async function DELETE(req: NextRequest, res: NextResponse) {
+export async function DELETE(req: NextRequest) {
     try {
     
     if(req.method === 'DELETE') {

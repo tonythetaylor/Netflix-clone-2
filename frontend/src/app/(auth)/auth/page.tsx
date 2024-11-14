@@ -5,19 +5,42 @@ import axios from "axios";
 import Image from "next/image";
 import { useCallback, useState } from "react";
 import { signIn } from 'next-auth/react'
-import { register } from "@/app/api/register/route";
+import { useRouter } from 'next/navigation';
 
 const SignInPage = () => {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
   const [variant, setVariant] = useState("login");
+
   const toggleVariant = useCallback(() => {
     setVariant((currentVariant) =>
       currentVariant === "login" ? "register" : "login"
     );
   }, []);
+
+  const register = useCallback(async () => {
+    try {
+      const response = await axios.post('/api/register', {
+        email,
+        name,
+        password
+      });
+
+     // Handle successful signup
+     if (response.status === 200) {
+      // router. ('/'); // Redirect to the dashboard
+      setVariant('login')
+      setEmail('');
+      setPassword('');
+    }
+    } catch (error) {
+      console.log(error)
+    }
+  }, [email, name, password])
 
   const login = useCallback(async () => {
     try {
@@ -26,14 +49,13 @@ const SignInPage = () => {
         password,
         // redirect: false,
         redirectTo: '/profiles'
-      } )
+      } );
     } catch (error) {
       console.log(error)
     }
   }, [email, password])
 
   return (
-    <form action={variant === 'login' ? login : register}>
     <div className="relative h-screen w-screen bg-[url('/hero.jpg')] bg-no-repeat bg-cover">
       <div className="bg-black w-full h-full lg:bg-opacity-50">
         <nav className="px-4 ">
@@ -52,7 +74,6 @@ const SignInPage = () => {
                   id="name"
                   type="name"
                   value={name}
-                  name="name"
                 />
               )}
               <Input
@@ -61,7 +82,6 @@ const SignInPage = () => {
                 id="email"
                 type="email"
                 value={email}
-                name="email"
               />
               <Input
                 label="Password"
@@ -69,10 +89,9 @@ const SignInPage = () => {
                 id="password"
                 type="password"
                 value={password}
-                name="password"
               />
             </div>
-            <button  className="bg-red-600 py-3 text-white w-full rounded-md mt-10 hover:bg-red-700 transition">
+            <button onClick={variant === 'login' ? login : register} className="bg-red-600 py-3 text-white w-full rounded-md mt-10 hover:bg-red-700 transition">
               {variant === "login" ? "Login" : "Sign Up"}
             </button>
             <p className="text-neutral-500 mt-12">
@@ -89,7 +108,6 @@ const SignInPage = () => {
         </div>
       </div>
     </div>
-    </form>
   );
 };
 
