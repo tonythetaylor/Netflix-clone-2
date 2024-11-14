@@ -4,7 +4,7 @@ import serverAuth from "@/lib/serverAuth";
 import prisma from "@/lib/prismadb";
 import { auth } from "@/auth";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest) {
     // const session = await auth()
 
     if(req.method !== 'GET') {
