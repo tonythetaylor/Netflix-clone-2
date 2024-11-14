@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { without } from 'lodash';
 import prisma from "@/lib/prismadb";
 import serverAuth from "@/lib/serverAuth";
-import { auth } from "@/auth";
 
 export async function POST(req: NextRequest) {
     try {

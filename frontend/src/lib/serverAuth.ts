@@ -1,5 +1,3 @@
-import { NextApiRequest } from "next";
-import { getSession } from "next-auth/react"; 
 import { auth } from "@/auth";
 
 import prisma from "./prismadb";
@@ -9,8 +7,6 @@ const serverAuth = async () => {
 
     if(!session?.user?.email) {
         throw new Error('Not signed in')
-    
-    
     }
 
     const currentUser = await prisma.user.findUnique({

@@ -4,7 +4,6 @@ import "./globals.css";
 import SessionProviders from "@/utils/session-provider";
 
 import { auth } from "@/auth";
-import { redirect } from "next/navigation";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,8 +27,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   
-  // const { data: session, status } =  useSession()
-  const session = await auth();
+ const session = await auth();
 
 
   return (

@@ -1,9 +1,5 @@
-import { auth } from "@/auth";
-import { type NextRequest, NextResponse} from 'next/server'
+import { NextResponse} from 'next/server'
 
-export async function GET(req: Request) {
-  const data = await req.body
-// console.log(req)
-  // if (req.auth) return NextResponse.json(req.auth.user);
+export async function GET() {
   return NextResponse.json({ message: "For Testing api calls" }, { status: 200 });
 };

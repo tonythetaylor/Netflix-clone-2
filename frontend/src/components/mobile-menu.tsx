@@ -1,5 +1,4 @@
 import React from "react";
-import { isNull } from "util";
 
 interface MobileMenuProps {
   visible?: boolean;

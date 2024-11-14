@@ -3,13 +3,10 @@
 import Input from "@/components/input";
 import axios from "axios";
 import Image from "next/image";
-import { useCallback, useState } from "react";
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation';
+import { useCallback, useState, ChangeEvent } from "react";
+import { signIn } from "next-auth/react";
 
 const SignInPage = () => {
-  const router = useRouter();
-
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -24,36 +21,35 @@ const SignInPage = () => {
 
   const register = useCallback(async () => {
     try {
-      const response = await axios.post('/api/register', {
+      const response = await axios.post("/api/register", {
         email,
         name,
-        password
+        password,
       });
 
-     // Handle successful signup
-     if (response.status === 200) {
-      // router. ('/'); // Redirect to the dashboard
-      setVariant('login')
-      setEmail('');
-      setPassword('');
-    }
+      // Handle successful signup
+      if (response.status === 200) {
+        setVariant("login");
+        setEmail("");
+        setPassword("");
+      }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }, [email, name, password])
+  }, [email, name, password]);
 
   const login = useCallback(async () => {
     try {
-      await signIn('credentials', {
+      await signIn("credentials", {
         email,
         password,
         // redirect: false,
-        redirectTo: '/profiles'
-      } );
+        redirectTo: "/profiles",
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }, [email, password])
+  }, [email, password]);
 
   return (
     <div className="relative h-screen w-screen bg-[url('/hero.jpg')] bg-no-repeat bg-cover">
@@ -70,7 +66,9 @@ const SignInPage = () => {
               {variant === "register" && (
                 <Input
                   label="Username"
-                  onChange={(ev: any) => setName(ev.target.value)}
+                  onChange={(ev: ChangeEvent<HTMLInputElement>) =>
+                    setName(ev.target.value)
+                  }
                   id="name"
                   type="name"
                   value={name}
@@ -78,30 +76,39 @@ const SignInPage = () => {
               )}
               <Input
                 label="Email"
-                onChange={(ev: any) => setEmail(ev.target.value)}
+                onChange={(ev: ChangeEvent<HTMLInputElement>) =>
+                  setEmail(ev.target.value)
+                }
                 id="email"
                 type="email"
                 value={email}
               />
               <Input
                 label="Password"
-                onChange={(ev: any) => setPassword(ev.target.value)}
+                onChange={(ev: ChangeEvent<HTMLInputElement>) =>
+                  setPassword(ev.target.value)
+                }
                 id="password"
                 type="password"
                 value={password}
               />
             </div>
-            <button onClick={variant === 'login' ? login : register} className="bg-red-600 py-3 text-white w-full rounded-md mt-10 hover:bg-red-700 transition">
+            <button
+              onClick={variant === "login" ? login : register}
+              className="bg-red-600 py-3 text-white w-full rounded-md mt-10 hover:bg-red-700 transition"
+            >
               {variant === "login" ? "Login" : "Sign Up"}
             </button>
             <p className="text-neutral-500 mt-12">
-              {variant === 'login' ? 'First time using nextflix?' : 'Already have an account?'}
+              {variant === "login"
+                ? "First time using nextflix?"
+                : "Already have an account?"}
               <span
                 onClick={toggleVariant}
                 className="text-white mk-1 hover:underline cursor-pointer"
               >
                 {" "}
-                {variant === 'login' ? 'Create an account' : 'Login'}
+                {variant === "login" ? "Create an account" : "Login"}
               </span>
             </p>
           </div>
