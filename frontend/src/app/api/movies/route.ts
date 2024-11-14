@@ -11,9 +11,9 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
         const movies = await prisma.movie.findMany();
 
-        console.log(movies)
+        // console.log(movies)
 
-        return NextResponse.json({body: movies})
+        return NextResponse.json(movies)
         
     } catch (error) {
         return NextResponse.json({error: error} , {status: 400})
