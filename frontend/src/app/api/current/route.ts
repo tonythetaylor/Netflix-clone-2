@@ -4,11 +4,11 @@ import serverAuth from "@/lib/serverAuth";
 import prisma from "@/lib/prismadb";
 import { auth } from "@/auth";
 
-export async function GET(req: Request, res: Response) {
-    const session = await auth()
+export async function GET(req: NextApiRequest, res: NextApiResponse) {
+    // const session = await auth()
 
     if(req.method !== 'GET') {
-        return Response.error()
+        throw new Error('Invalid path')
     }
 
 
