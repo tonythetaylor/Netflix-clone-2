@@ -43,7 +43,7 @@ const SignInPage = () => {
       await signIn("credentials", {
         email,
         password,
-        // redirect: false,
+        redirect: true,
         redirectTo: "/profiles",
       });
     } catch (error) {

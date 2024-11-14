@@ -3,7 +3,6 @@ import type { NextRequest } from "next/server";
 import { NextURL } from "next/dist/server/web/next-url";
 import CryptoJS from "crypto-js";
 import jwt from "jsonwebtoken";
-import { auth } from "@/auth"
 
 export async function middleware(req: NextRequest) {
     // Check for session token
@@ -42,10 +41,8 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    "/dashboard/:path*", // Protect dashboard route and sub-routes
     "/auth",
     "/",
-    "/about/:path",
     "/profiles"
     // Add more routes to protect
   ],
