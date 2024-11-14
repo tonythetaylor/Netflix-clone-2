@@ -34,7 +34,7 @@ const SignInPage = () => {
 
   return (
     <form action={variant === 'login' ? login : register}>
-    <div className="relative h-full w-full bg-[url('/hero.jpg')] bg-no-repeat bg-cover">
+    <div className="relative h-screen w-screen bg-[url('/hero.jpg')] bg-no-repeat bg-cover">
       <div className="bg-black w-full h-full lg:bg-opacity-50">
         <nav className="px-4 ">
           <Image src={"/logo.png"} alt="logo" width={150} height={20} />
