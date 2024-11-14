@@ -13,7 +13,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
         // console.log(movies)
 
-        return NextResponse.json(movies)
+        return NextResponse.json({body: movies})
         
     } catch (error) {
         return NextResponse.json({error: error} , {status: 400})

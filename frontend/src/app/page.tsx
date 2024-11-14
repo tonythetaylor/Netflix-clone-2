@@ -8,15 +8,16 @@ import Billboard from "@/components/billboard";
 import MovieList from "@/components/movie-list";
 import useMovieList from "@/hooks/useMovieList";
 import useFavorites from "@/hooks/useFavorites";
+import InfoModal from "@/components/info-modal";
+import useInfoModal from "@/hooks/useInfoModals";
 
 export default function Home() {
   const { data: session } = useSession();
-
   const {data: movies = []} = useMovieList()
-  // TODO: update the favorites routes for useFavorites()
   const {data: favorites = []} = useFavorites()
-
+const { isOpen, closeModal} = useInfoModal();
   const { body } = movies;
+
   if (!session) {
     redirect("/auth");
   }
@@ -25,6 +26,7 @@ export default function Home() {
 
   return (
     <>
+    <InfoModal visible={isOpen} onClose={closeModal}/>
       <Navbar />
       <Billboard />
       <div className="pb-40">
