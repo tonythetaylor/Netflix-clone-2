@@ -5,12 +5,13 @@ import axios from "axios";
 import Image from "next/image";
 import { useCallback, useState, ChangeEvent } from "react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-
+  const router = useRouter();
   const [variant, setVariant] = useState("login");
 
   const toggleVariant = useCallback(() => {
@@ -40,12 +41,15 @@ const SignInPage = () => {
 
   const login = useCallback(async () => {
     try {
-      await signIn("credentials", {
+      const response = await signIn("credentials", {
         email,
         password,
-        redirect: true,
-        redirectTo: "/profiles",
+        redirect: false,
       });
+
+      if(response.status === 200) {
+        return router.push("/profiles");
+      }
     } catch (error) {
       console.log(error);
     }

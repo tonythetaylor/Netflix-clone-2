@@ -6,7 +6,7 @@ import prisma from "./lib/prismadb";
 
 export const { auth, handlers: { GET, POST }, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
-  session: {strategy: "jwt"},
+  session: { strategy: "jwt" },
   pages: {
     signIn: "/auth",
   },
@@ -17,9 +17,11 @@ export const { auth, handlers: { GET, POST }, signIn, signOut } = NextAuth({
         email: {
           label: "Email",
           type: "email",
-          placeholder: "email@example.com",
         },
-        password: { label: "Password", type: "password" },
+        password: {
+          label: "Password",
+          type: "password"
+        },
       },
       authorize: async (credentials) => {
         const { email, password } = credentials as { email: string; password: string; };
@@ -37,7 +39,7 @@ export const { auth, handlers: { GET, POST }, signIn, signOut } = NextAuth({
           throw new Error('Email does not exist');
         }
 
-        const isCorrectPassword = await  bcrypt.compare(password, user.hashedPassword)
+        const isCorrectPassword = await bcrypt.compare(password, user.hashedPassword)
 
         if (!isCorrectPassword) {
           throw new Error('Incorret password')

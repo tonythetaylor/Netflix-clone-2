@@ -17,19 +17,20 @@ export default function Home() {
   const { isOpen, closeModal } = useInfoModal();
   const { body } = movies;
 
-  if (!session) {
+  if (!session.user?.email) {
     redirect("/auth");
   }
 
   return (
-    <>
+    <div className="h-full overflow-y-auto">
       <InfoModal visible={isOpen} onClose={closeModal} />
       <Navbar />
+
       <Billboard />
-      <div className="pb-40">
+      <div className="pb-40 sticky top-0 h-screen flex flex-col pt-20">
         <MovieList title="Trending Now" data={body} />
         <MovieList title="My List" data={favorites} />
       </div>
-    </>
+    </div>
   );
 }
